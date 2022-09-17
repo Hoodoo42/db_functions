@@ -9,3 +9,34 @@ SELECT name, location FROM dealership d ORDER BY date_established ASC LIMIT 1;
 SELECT d.name, d.location, fsc.make, fsc.model, fsc.`year` 
 FROM dealership d  INNER JOIN for_sale_cars fsc ON fsc.dealership_id = d.id 
 WHERE fsc.`year` >= '2021-01-01' ORDER BY fsc.`year` ; 
+
+SELECT COUNT(id) FROM for_sale_cars fsc WHERE `year` = 2019;
+
+SELECT COUNT(fsc.id) 
+FROM for_sale_cars fsc INNER JOIN dealership d ON fsc.dealership_id = d.id 
+GROUP BY d.id 
+ORDER BY d.date_established DESC LIMIT 1;
+
+
+
+SELECT COUNT(fsc.id) 
+FROM for_sale_cars fsc INNER JOIN dealership d ON fsc.dealership_id =d.id 
+GROUP BY fsc.dealership_id;
+
+
+SELECT COUNT(fsc.id) 
+FROM for_sale_cars fsc INNER JOIN dealership d ON fsc.dealership_id =d.id 
+GROUP BY fsc.dealership_id
+HAVING COUNT(fsc.id) >= 10;
+
+SELECT COUNT(fsc.id), d.id
+FROM for_sale_cars fsc INNER JOIN dealership d ON fsc.dealership_id =d.id 
+WHERE fsc.`year` > '2020' 
+GROUP BY d.id
+HAVING COUNT(fsc.id) >= 1;
+
+SELECT COUNT(fsc.id), d.id
+FROM for_sale_cars fsc INNER JOIN dealership d ON fsc.dealership_id =d.id 
+WHERE fsc.`year` > '2020' AND fsc.model LIKE ('%x%') 
+GROUP BY d.id
+HAVING COUNT(fsc.id) >= 5;
